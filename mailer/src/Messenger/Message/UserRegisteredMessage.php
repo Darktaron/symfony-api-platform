@@ -1,6 +1,6 @@
 <?php
     
-    namespace App\Messenger\Message;
+    namespace Mailer\Messenger\Message;
     
     class UserRegisteredMessage{
         private string $id;
