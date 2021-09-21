@@ -8,7 +8,7 @@
     use App\Exception\User\UserNotFoundException;
     use Doctrine\ORM\OptimisticLockException;
     use Doctrine\ORM\ORMException;
-
+    
     class UserRepository extends BaseRepository{
         
         protected static function entityClass(): string{
@@ -22,7 +22,21 @@
             
             return $user;
         }
-    
+        
+        public function findOneInactiveByIdAndTokenOrFail(string $id, string $token): User{
+            if(null === $user = $this->objectRepository->findOneBy(
+                    [
+                        'id'     => $id,
+                        'token'  => $token,
+                        'active' => false,
+                    ])
+            ){
+                throw UserNotFoundException::fromUserIdAndToken($id, $token);
+            }
+            
+            return $user;
+        }
+        
         /**
          * @throws OptimisticLockException
          * @throws ORMException
@@ -30,7 +44,7 @@
         public function save(User $user): void{
             $this->saveEntity($user);
         }
-    
+        
         /**
          * @throws OptimisticLockException
          * @throws ORMException
