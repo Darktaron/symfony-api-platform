@@ -37,6 +37,14 @@
             return $user;
         }
         
+        public function findOneByIdAndResetPasswordToken(string $id, string $token): User{
+            if(null === $user = $this->objectRepository->findOneBy(['id' => $id, 'resetPasswordToken' => $token])){
+                throw UserNotFoundException::fromUserIdAndResetPasswordToken($id, $token);
+            }
+            
+            return $user;
+        }
+        
         /**
          * @throws OptimisticLockException
          * @throws ORMException
