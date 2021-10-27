@@ -24,9 +24,8 @@
          * @throws OptimisticLockException
          * @throws ORMException
          */
-        public function changePassword(Request $request, User $user): User{
-            $oldPassword = RequestService::getField($request, 'oldPassword');
-            $newPassword = RequestService::getField($request, 'newPassword');
+        public function changePassword(string $user, string $oldPassword, string $newPassword): User{
+            $user = $this->repository->findOneById($user);
             
             if(!$this->service->isValidPassword($user, $oldPassword)){
                 throw PasswordException::oldPasswordDoesNotMatch();

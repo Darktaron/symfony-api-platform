@@ -4,8 +4,8 @@
     
     use App\Entity\User;
     use App\Repository\UserRepository;
-    use App\Service\Request\RequestService;
-    use Symfony\Component\HttpFoundation\Request;
+    use Doctrine\ORM\OptimisticLockException;
+    use Doctrine\ORM\ORMException;
 
     class ActivateAccountService{
         private UserRepository $userRepository;
@@ -14,10 +14,14 @@
             $this->userRepository = $userRepository;
         }
     
-        public function activate(Request $request, string $id): User{
+        /**
+         * @throws OptimisticLockException
+         * @throws ORMException
+         */
+        public function activate(string $id, string $token): User{
             $user = $this->userRepository->findOneInactiveByIdAndTokenOrFail(
                 $id,
-                RequestService::getField($request, 'token')
+                $token
             );
             
             $user->setActive(true);

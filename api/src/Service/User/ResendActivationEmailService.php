@@ -7,6 +7,8 @@
     use App\Messenger\RoutingKey;
     use App\Repository\UserRepository;
     use App\Service\Request\RequestService;
+    use Doctrine\ORM\OptimisticLockException;
+    use Doctrine\ORM\ORMException;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp;
     use Symfony\Component\Messenger\MessageBusInterface;
@@ -20,8 +22,11 @@
             $this->messageBus = $messageBus;
         }
     
-        public function resend(Request $request){
-            $email = RequestService::getField($request, 'email');
+        /**
+         * @throws OptimisticLockException
+         * @throws ORMException
+         */
+        public function resend(string $email){
             $user = $this->userRepository->findOneByEmailOrFail($email);
             
             if($user->isActive()){

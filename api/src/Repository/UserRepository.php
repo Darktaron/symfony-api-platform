@@ -60,4 +60,11 @@
         public function remove(User $user): void{
             $this->removeEntity($user);
         }
+    
+        public function findOneById(string $id): User{
+            if(null === $user = $this->objectRepository->find($id)){
+                throw UserNotFoundException::fromUserId($id);
+            }
+            return $user;
+        }
     }

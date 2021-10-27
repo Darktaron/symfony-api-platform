@@ -25,8 +25,8 @@
          * @throws ORMException
          * @throws OptimisticLockException
          */
-        public function send(Request $request): void{
-            $user = $this->repository->findOneByEmailOrFail(RequestService::getField($request, 'email'));
+        public function send(string $email): void{
+            $user = $this->repository->findOneByEmailOrFail($email);
             $user->setResetPasswordToken(\sha1(\uniqid()));
             
             $this->repository->save($user);

@@ -23,12 +23,10 @@
          * @throws OptimisticLockException
          * @throws ORMException
          */
-        public function reset(Request $request): User{
-            $userId = RequestService::getField($request, 'userId');
-            $token = RequestService::getField($request, 'resetPasswordToken');
-            $password = RequestService::getField($request, 'password');
+        public function reset(string $userId, string $resetPasswordToken, string $password): User{
             
-            $user = $this->userRepository->findOneByIdAndResetPasswordToken($userId, $token);
+            
+            $user = $this->userRepository->findOneByIdAndResetPasswordToken($userId, $resetPasswordToken);
             
             $user->setPassword($this->encoderService->generateEncodedPassword($user, $password));
             $user->setResetPasswordToken(null);
