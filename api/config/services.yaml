@@ -5,7 +5,10 @@ services:
     autowire: true
     autoconfigure: true
     bind:
-      $mediaPath: '%env(resolve:SUBDOMAIN)%'
+      $mediaPath:            '%env(resolve:SUBDOMAIN)%'
+      $facebookClientId:     '%env(FACEBOOK_CLIENT)%'
+      $facebookSecret:       '%env(FACEBOOK_SECRET)%'
+      $facebookGraphVersion: '%env(FACEBOOK_GRAPH_VERSION)%'
   App\:
     resource: '../src/'
     exclude:
