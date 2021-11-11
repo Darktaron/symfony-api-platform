@@ -146,4 +146,8 @@ namespace App\Entity;
         public function eraseCredentials(): void
         {
         }
+    
+        public function equals(User $user): bool{
+            return $this->id === $user->getId();
+        }
     }
