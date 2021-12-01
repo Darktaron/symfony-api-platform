@@ -188,12 +188,12 @@ App\Entity\User:
       method: GET
       security: is_granted("USER_READ", object)
     put:
-      method: GET
+      method: PUT
       security: is_granted("USER_UPDATE", object)
       denormalization_context:
         groups: [user_update]
     delete:
-      method: GET
+      method: DELETE
       security: is_granted("USER_DELETE", object)
     activate:
       method: PUT
@@ -204,3 +204,9 @@ App\Entity\User:
         groups: [user_activate]
       openapi_context:
         summary: Activate a user
+  properties:
+    groups:
+      subresource:
+        resourceClass: App\Entity\Group
+        collection: true
+        maxDepth: 1

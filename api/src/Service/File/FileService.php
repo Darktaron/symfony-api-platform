@@ -5,7 +5,6 @@
     
     namespace App\Service\File;
     
-    use League\Flysystem\AwsS3V3\VisibilityConverter;
     use League\Flysystem\FilesystemException;
     use League\Flysystem\FilesystemOperator;
     use Psr\Log\LoggerInterface;

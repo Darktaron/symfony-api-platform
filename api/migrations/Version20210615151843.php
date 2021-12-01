@@ -15,7 +15,7 @@
         public function up(Schema $schema): void{
             $this->addSql('
                 CREATE TABLE user (
-                    id CHAR(36) NOT NULL PRIMARY KEY,
+                    id VARCHAR(36) NOT NULL PRIMARY KEY,
                     name VARCHAR(100) NOT NULL,
                     email VARCHAR(100) NOT NULL,
                     password VARCHAR(100) DEFAULT NULL,

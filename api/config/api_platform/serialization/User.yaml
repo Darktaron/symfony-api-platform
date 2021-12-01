@@ -18,3 +18,5 @@ App\Entity\User:
       groups: [user_read]
     updateAt:
       groups: [user_read]
+    groups:
+      groups: [user_read]
