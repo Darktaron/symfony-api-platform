@@ -48,7 +48,7 @@
                         return;
                     }
                 }
-                throw new AccessDeniedHttpException("You can't retrieve another user groups");
+                throw new AccessDeniedHttpException("You can't retrieve users of another group");
             }
             
             
